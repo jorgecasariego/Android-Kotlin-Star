@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <ImageButton
+        android:id="@+id/signout"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_logout"
+        />
+    <TextView
+        android:id="@+id/usuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido ^*****"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/elegirAmigo"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/caja"/>
+
+    <TextView
+        android:id="@+id/amigo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tu amigo invisble es!!"
+        android:textSize="20sp"
+        android:gravity="center_horizontal"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/datosAmigoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageButton
+            android:id="@+id/comprar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_amazon"
+            android:layout_marginLeft="20dp"
+            />
+
+        <ImageButton
+            android:id="@+id/llamar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_llamar"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:id="@+id/email"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_email"
+            android:layout_marginLeft="30dp"/>
+
+        <ImageButton
+            android:id="@+id/mapa"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_mapa"
+            android:layout_marginLeft="20dp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
