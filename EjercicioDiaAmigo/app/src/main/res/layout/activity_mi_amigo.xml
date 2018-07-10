@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MiAmigoActivity"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/nombreView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bienvenido"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"/>
+
+    <ImageView
+        android:id="@+id/elegirAmigo"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/caja"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:id="@+id/nombreAmigoView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Tu amigo es "
+        android:gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:id="@+id/contenedorBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/llamarView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_llamar"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:id="@+id/comprarView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_amazon"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:id="@+id/mapaView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_mapa"
+            android:layout_marginLeft="20dp"/>
+
+        <ImageButton
+            android:id="@+id/emailView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_email"
+            android:layout_marginLeft="20dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
