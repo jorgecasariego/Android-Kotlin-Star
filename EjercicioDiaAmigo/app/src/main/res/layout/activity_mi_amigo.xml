@@ -39,20 +39,22 @@
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageButton
             android:id="@+id/llamarView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_llamar"
+            android:src="@drawable/ic_llamar"
+            android:scaleType="fitXY"
             android:layout_marginLeft="20dp"/>
 
         <ImageButton
             android:id="@+id/comprarView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_amazon"
+            android:src="@drawable/ic_amazon"
+            android:scaleType="fitXY"
             android:layout_marginLeft="20dp"/>
 
         <ImageButton
@@ -62,11 +64,12 @@
             android:background="@drawable/ic_mapa"
             android:layout_marginLeft="20dp"/>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/emailView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/ic_email"
+            android:src="@drawable/ic_email"
+            android:scaleType="fitXY"
             android:layout_marginLeft="20dp"/>
 
     </LinearLayout>
