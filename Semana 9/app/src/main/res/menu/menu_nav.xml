@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_seccion1"
+            android:icon="@drawable/ic_menu_estadisticas"
+            android:title="Opción 1"/>
+
+        <item
+            android:id="@+id/menu_seccion2"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="Opción 2"/>
+
+        <item
+            android:id="@+id/menu_seccion3"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="Opción 3"/>
+    </group>
+</menu>
