@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Mis Notas"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/nota_ingresada"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="Ingresar nota..."
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/guardar_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar" />
+
+    <Button
+        android:id="@+id/leer_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Leer Notas" />
+
+    <Button
+        android:id="@+id/limpiar_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Limpiar Notas" />
+
+    <TextView
+        android:id="@+id/resultado_textview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp" />
+
+
+</LinearLayout>
