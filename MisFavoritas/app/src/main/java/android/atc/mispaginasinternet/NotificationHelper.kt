@@ -11,6 +11,7 @@ class NotificationHelper(context: Context) : ContextWrapper(context)  {
     companion object {
         val FAVORITOS_CHANNEL = "mis_favoritos"
         // TODO 15: Agregar nuevo canal para mensajes directos
+        val MENSAJE_DIRECTO_CHANNEL = "mensaje_directo"
     }
 
     private val mNotificationManager: NotificationManager by lazy {
@@ -36,6 +37,18 @@ class NotificationHelper(context: Context) : ContextWrapper(context)  {
 
             // TODO: 16. la tarea ahora es crear un mensaje directo con prioridad alta para cuando
             // TODO: 16. se borre un articulo del bookmark
+            val mensajeDirectoChannel = NotificationChannel(
+                    MENSAJE_DIRECTO_CHANNEL,
+                    getString(R.string.mensajes_directos),
+                    NotificationManager.IMPORTANCE_HIGH)
+
+            // Configuramos el canal con las preferencias basicas
+            mensajeDirectoChannel.lightColor = Color.BLUE
+            mensajeDirectoChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 500, 200, 500)
+            mensajeDirectoChannel.setShowBadge(false)
+
+            // Creamos el canal utilizando el notification manager
+            mNotificationManager.createNotificationChannel(mensajeDirectoChannel)
 
         }
     }
@@ -60,9 +73,23 @@ class NotificationHelper(context: Context) : ContextWrapper(context)  {
     }
 
     //TODO 17: crear el metodo para enviar notificaciones directas
-//    fun getNotificationDirectas(titulo: String, cuerpo: String): Notification.Builder {
-
-//    }
+    fun getNotificationDirectas(titulo: String, cuerpo: String): Notification.Builder {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Notification.Builder(applicationContext, MENSAJE_DIRECTO_CHANNEL)
+                    .setContentTitle(titulo)
+                    .setContentText(cuerpo)
+                    .setSmallIcon(smallIcon)
+                    .setAutoCancel(true)
+                    .setContentIntent(getPendingIntent(cuerpo))
+        } else {
+            return Notification.Builder(applicationContext)
+                    .setContentTitle(titulo)
+                    .setContentText(cuerpo)
+                    .setSmallIcon(smallIcon)
+                    .setAutoCancel(true)
+                    .setContentIntent(getPendingIntent(cuerpo))
+        }
+    }
 
     /**
      * Metodo para enviar la notificacion
@@ -93,6 +120,7 @@ class NotificationHelper(context: Context) : ContextWrapper(context)  {
         val openResultadoIntent = Intent(this, ResultadoActivity::class.java)
         openResultadoIntent.putExtra("Mensaje", mensaje)
         openResultadoIntent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK)
+
         val stackBuilder = TaskStackBuilder.create(this)
         stackBuilder.addParentStack(ResultadoActivity::class.java)
         stackBuilder.addNextIntent(openResultadoIntent)

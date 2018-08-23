@@ -3,6 +3,7 @@
     package="android.atc.mispaginasinternet">
 
     <!-- TODO 1: Permiso de Internet -->
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"

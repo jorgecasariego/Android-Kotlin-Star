@@ -1,11 +1,19 @@
 package android.atc.mispaginasinternet
 
+import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
+import android.support.annotation.RequiresApi
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,35 +33,45 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Favoritos"
 
-        // TODO 13: Inicializamos el notificationManager
+        // Inicializamos el notificationManager
+        mNotificationHelper = NotificationHelper(this)
 
-        // TODO 5: Hacemos que la pagina web se cargue dentro de la app
-//        webView.webViewClient = object : WebViewClient() {
-//            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-//            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
-//                val url: String = request?.url.toString()
-//                view?.loadUrl(url)
-//                return true
-//            }
-//
-//            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-//                view?.loadUrl(url)
-//                return true
-//            }
-//
-//            // TODO 8: Para que nuestro menu se pueda actualizar tenemos que llamar a invalidateOpcionsMenu()
+        // Hacemos que la pagina web se cargue dentro de la app
+        webView.webViewClient = object : WebViewClient() {
+            @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                val url: String = request?.url.toString()
+                view?.loadUrl(url)
+                return true
+            }
 
-//            // TODO 8: Para que nuestro menu se pueda actualizar tenemos que llamar a invalidateOpcionsMenu()
-//        }
+            override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+                view?.loadUrl(url)
+                return true
+            }
 
-        // TODO 2:  Configuramos el webView
-        // Habilitar javascript
-        // cargar wikipedia como pagina principal
-        // deshabilitar scroll horizontal
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                invalidateOptionsMenu()
+            }
 
-        // TODO 3: Habilitando Zoom
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                invalidateOptionsMenu()
+            }
+        }
 
-        // TODO 4: Probar que wikipedia se cargue al iniciar la aplicación
+
+        webView.settings.javaScriptEnabled = true
+        webView.loadUrl("http://www.wikipedia.org")
+        webView.isHorizontalScrollBarEnabled = false
+
+        // Habilitando Zoom
+        webView.settings.setSupportZoom(true)
+        webView.settings.builtInZoomControls = true
+        webView.settings.displayZoomControls = true
+
+        // Probar que wikipedia se cargue al iniciar la aplicación
         // Verificar que la pagina se cargo en el navegador!!
 
     }
@@ -67,11 +85,30 @@ class MainActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         Log.d("TEST", "LLamando a onPrepareOptionMenu")
 
-        // TODO 11: Vemos si cambiar o no el color del bookmark
+        // Vemos si cambiar o no el color del bookmark
+        if(Utils.isBookmarked(this, webView.url)) {
+            Utils.tintMenuIcon(this, menu?.getItem(0), R.color.colorAccent)
+        } else {
+            Utils.tintMenuIcon(this, menu?.getItem(0), android.R.color.white)
+        }
 
-        // TODO 7: Deshabilitamos el boton de ir atras si ya no podemos ir atras
+        // Deshabilitamos el boton de ir atras si ya no podemos ir atras
+        if (!webView.canGoBack()) {
+            menu?.findItem(R.id.action_back)?.isEnabled = false
+            menu?.findItem(R.id.action_back)?.icon?.alpha = 130
+        } else {
+            menu?.findItem(R.id.action_back)?.isEnabled = true
+            menu?.findItem(R.id.action_back)?.icon?.alpha = 255
+        }
 
-        // TODO 7: Deshabilitamos el boton para ir hacia adelante si ya no podemos ir hacia adelante
+        // Deshabilitamos el boton para ir hacia adelante si ya no podemos ir hacia adelante
+        if (!webView.canGoForward()) {
+            menu?.findItem(R.id.action_forward)?.isEnabled = false
+            menu?.findItem(R.id.action_forward)?.icon?.alpha = 130
+        } else {
+            menu?.findItem(R.id.action_forward)?.isEnabled = true
+            menu?.findItem(R.id.action_forward)?.icon?.alpha = 255
+        }
 
         return true
     }
@@ -79,12 +116,27 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_bookmark -> {
-                // TODO 9: Guardar las paginas favoritas
+                // Guardar las paginas favoritas
+                Utils.bookmarkUrl(this, webView.url)
+                val mensaje = if (Utils.isBookmarked(this, webView.url))
+                    webView.title + " ha sido agregado a los favoritos" else
+                    webView.title + " ha sido removido de los favoritos"
 
-                // TODO 10: LLamamos al metodo que hace que nuestro menu se pueda actualizar y el color
+                Snackbar.make(contenedor, mensaje, Snackbar.LENGTH_LONG).show()
+
+                // LLamamos al metodo que hace que nuestro menu se pueda actualizar y el color
                 // del icono del bookmar pueda cambiar
+                invalidateOptionsMenu()
 
-                // TODO 14: Creamos la notificacion cada que se pulsa en el BookMark mostrando el mismo mensaje
+                if (Utils.isBookmarked(this, webView.url)) {
+                    // Creamos la notificacion cada que se pulsa en el BookMark mostrando el mismo mensaje
+                    mNotificationHelper.notify(NOTIFICATION_FAVORITOS,
+                            mNotificationHelper.getNotificationFavoritos("Favoritos", mensaje))
+                } else {
+                    // Creamos la notificacion cada que se pulsa en el BookMark mostrando el mismo mensaje
+                    mNotificationHelper.notify(NOTIFICATION_REMOVER_FAVORITOS,
+                            mNotificationHelper.getNotificationDirectas("Todo mal", mensaje))
+                }
 
             }
             R.id.action_back -> back()
@@ -94,14 +146,27 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    // TODO 6: Implementamos la opción de ir hacia atras o adelante
+    // Implementamos la opción de ir hacia atras o adelante
     fun back() {
-
+        if (webView.canGoBack()){
+            webView.goBack()
+        }
     }
-    // TODO 6: Implementamos la opción de ir hacia atras o adelante
+
+    // Implementamos la opción de ir hacia atras o adelante
     fun forward() {
+        if (webView.canGoForward()) {
+            webView.goForward()
+        }
     }
 
-    // TODO 12: Manejamos el boton de atras del dispositivo
+    override fun onBackPressed() {
+
+        if(webView.canGoBack()) {
+            webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
+    }
 
 }
