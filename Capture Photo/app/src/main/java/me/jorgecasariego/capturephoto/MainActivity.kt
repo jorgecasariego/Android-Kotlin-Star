@@ -10,17 +10,21 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.widget.Toast
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.common.ResizeOptions
 import com.facebook.imagepipeline.common.RotationOptions
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.activity_main.*
+import me.jorgecasariego.capturephoto.R.id.*
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -42,9 +46,10 @@ class MainActivity : AppCompatActivity() {
      */
 
     private fun checkPermissions() {
+
         Dexter.withActivity(this)
                 .withPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(object: PermissionListener {
+                .withListener(object : PermissionListener {
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
                         launchCamera()
                     }
@@ -57,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                                     dialogInterface.dismiss()
                                     token?.cancelPermissionRequest()
                                 }
-                                .setPositiveButton("OK!"){ dialogInterface, i ->
+                                .setPositiveButton("OK!") { dialogInterface, i ->
                                     dialogInterface.dismiss()
                                     token?.continuePermissionRequest()
                                 }
@@ -80,7 +85,7 @@ class MainActivity : AppCompatActivity() {
         val fileUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
-        if(intent.resolveActivity(packageManager) != null) {
+        if (intent.resolveActivity(packageManager) != null) {
             mCurrentPhotoPath = fileUri.toString()
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -100,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun processToCapturePhoto() {
-        val cursor = contentResolver.query(Uri.parse(mCurrentPhotoPath), Array(1){
+        val cursor = contentResolver.query(Uri.parse(mCurrentPhotoPath), Array(1) {
             android.provider.MediaStore.Images.ImageColumns.DATA
         }, null, null, null)
 
