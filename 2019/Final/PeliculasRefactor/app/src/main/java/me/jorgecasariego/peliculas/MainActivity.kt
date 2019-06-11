@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_nav_menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mostrarFragment(Fragment1.newInstance())
+        mostrarFragment(Fragment2.newInstance())
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
