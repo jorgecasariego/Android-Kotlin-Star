@@ -5,19 +5,25 @@
         <item
             android:id="@+id/menu_seccion_1"
             android:icon="@android:drawable/ic_menu_edit"
-            android:title="Opción 1"
+            android:title="Peliculas"
             />
 
         <item
             android:id="@+id/menu_seccion_2"
             android:icon="@android:drawable/ic_menu_agenda"
-            android:title="Opción 2"
+            android:title="Charts"
             />
 
         <item
             android:id="@+id/menu_seccion_3"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="Opción 3"
+            android:title="WebViews"
+            />
+
+        <item
+            android:id="@+id/menu_seccion_4"
+            android:icon="@android:drawable/ic_popup_disk_full"
+            android:title="PDF Viewer"
             />
 
     </group>
