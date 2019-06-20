@@ -21,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Usuario"
+        android:text="admin"
         android:layout_marginTop="100dp"/>
 
     <EditText
@@ -28,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
+        android:text="12345"
         android:layout_marginTop="15dp"
         android:inputType="textPassword"/>
 
