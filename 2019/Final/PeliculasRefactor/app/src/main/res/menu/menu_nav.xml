@@ -26,5 +26,11 @@
             android:title="PDF Viewer"
             />
 
+        <item
+            android:id="@+id/menu_seccion_5"
+            android:icon="@android:drawable/ic_popup_disk_full"
+            android:title="Formularios"
+            />
+
     </group>
 </menu>

@@ -83,7 +83,7 @@ class Fragment1 : Fragment(), OnFavoriteClicked {
                         adapter.add(MoviewItem(it, requireContext(), this@Fragment1))
                     }
 
-                    lista_peliculas.adapter = adapter
+                    listado_items.adapter = adapter
                 }
 
                 progressBar.visibility = View.GONE
@@ -101,11 +101,10 @@ class Fragment1 : Fragment(), OnFavoriteClicked {
         val resultado = peliculasDatabase.insertarPeliculaFavorita(pelicula)
 
         //Toast.makeText(this, "Pelicula favorita guardada ($resultado)", Toast.LENGTH_LONG).show()
-        Snackbar.make(lista_peliculas, "Pelicula favorita guardada ($resultado)", Snackbar.LENGTH_INDEFINITE).setAction("Cantidad") {
+        Snackbar.make(listado_items, "Pelicula favorita guardada ($resultado)", Snackbar.LENGTH_INDEFINITE).setAction("Cantidad") {
             val peliculasGuardadas = peliculasDatabase.mostrarPeliculasFavoritas()
             Toast.makeText(requireContext(), "Cantidad de peliculas favoritas: " + peliculasGuardadas.size, Toast.LENGTH_LONG).show()
         }.show()
     }
-
 
 }

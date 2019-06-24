@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_nav_menu)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        mostrarFragment(Fragment4.newInstance(), "webiew")
+        mostrarFragment(FormularioFragment.newInstance(), "formularios")
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.menu_seccion_2 -> mostrarFragment(Fragment2.newInstance(), "chart")
             R.id.menu_seccion_3 -> mostrarFragment(Fragment3.newInstance(), "webiew")
             R.id.menu_seccion_4 -> mostrarFragment(Fragment4.newInstance(), "pdf")
+            R.id.menu_seccion_5 -> mostrarFragment(FormularioFragment.newInstance(), "formularios")
             else -> {
                 return true
             }
