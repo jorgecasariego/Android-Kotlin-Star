@@ -32,5 +32,11 @@
             android:title="Formularios"
             />
 
+        <item
+            android:id="@+id/menu_seccion_6"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="QR Reader"
+            />
+
     </group>
 </menu>
